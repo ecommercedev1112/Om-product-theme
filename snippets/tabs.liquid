@@ -1,25 +1,24 @@
 {% comment %}
-  Example usage:
+    Example usage:
 
-{% render "tabs",
-  display_type: section.settings.display_as,                      Can either be 'accordion' or 'tab'
-  show_reviews: settings.enable_reviews,                          If true, the final tab will be reviews
-  reviews_title: reviews_title,                                   The title of the reviews tab [OPTIONAL]
-  accordion_is_closed: accordion_is_closed,                       If true, the accordion will be collapsed by default
-  product: product,                                               The product object [ONLY REQUIRED IF show_reviews is true]
-  allow_multi_open: true,                                         If true, all accordions can be opened at once
-  tab1_title: product_description_title,                          Title of tab 1 [OPTIONAL]
-  tab1_content: product.description,                              Content of tab 1 [OPTIONAL]
-  tab1_collapsed: true,                                           Boolean if the tab is opened/closed [OPTIONAL]
-  tab2_title: pages[section.settings.tab_2_page].title,           Title of tab 2 [OPTIONAL]
-  tab2_content: pages[section.settings.tab_2_page].content,       Content of tab 2 [OPTIONAL]
-  tab2_collapsed: false,                                          Boolean if the tab is opened/closed [OPTIONAL]
-  %}
+  {% render "tabs",
+    display_type: section.settings.display_as,                      Can either be 'accordion' or 'tab'
+    show_reviews: settings.enable_reviews,                          If true, the final tab will be reviews
+    reviews_title: reviews_title,                                   The title of the reviews tab [OPTIONAL]
+    accordion_is_closed: accordion_is_closed,                       If true, the accordion will be collapsed by default
+    product: product,                                               The product object [ONLY REQUIRED IF show_reviews is true]
+    allow_multi_open: true,                                         If true, all accordions can be opened at once
+    tab1_title: product_description_title,                          Title of tab 1 [OPTIONAL]
+    tab1_content: product.description,                              Content of tab 1 [OPTIONAL]
+    tab1_collapsed: true,                                           Boolean if the tab is opened/closed [OPTIONAL]
+    tab2_title: pages[section.settings.tab_2_page].title,           Title of tab 2 [OPTIONAL]
+    tab2_content: pages[section.settings.tab_2_page].content,       Content of tab 2 [OPTIONAL]
+    tab2_collapsed: false,                                          Boolean if the tab is opened/closed [OPTIONAL]
+    %}
 {% endcomment %}
 
-
 {%- liquid
-  assign tabId = ""
+  assign tabId = ''
   if product
     assign tabId = product.id
   endif
@@ -29,20 +28,20 @@
   assign show_reviews = show_reviews | default: _block.show_product_reviews
   assign accordion_is_closed = accordion_is_closed | default: false
   assign render_as_selected = false
-  assign first_valid_tab_found = ""
+  assign first_valid_tab_found = ''
 -%}
 
-{%- assign before_tabs_metafield_tab_title_render = "" -%}
-{%- assign after_tabs_metafield_tab_title_render = "" -%}
-{%- assign before_tabs_metafield_tab_content_render = "" -%}
-{%- assign after_tabs_metafield_tab_content_render = "" -%}
+{%- assign before_tabs_metafield_tab_title_render = '' -%}
+{%- assign after_tabs_metafield_tab_title_render = '' -%}
+{%- assign before_tabs_metafield_tab_content_render = '' -%}
+{%- assign after_tabs_metafield_tab_content_render = '' -%}
 
 {%- if metafield_tables and metafield_tables.size > 0 -%}
   {%- for metafield_table in metafield_tables -%}
     {%- if metafield_table.settings.display_as == display_type and metafield_table.settings.append_id == blank -%}
       {%- if metafield_table.settings.title != blank and metafield_table.settings.metafields != blank -%}
         {%- if first_valid_tab_found == blank -%}
-          {%- assign first_valid_tab_found = "product-tab-panelFields_" | append: metafield_table.id -%}
+          {%- assign first_valid_tab_found = 'product-tab-panelFields_' | append: metafield_table.id -%}
           {%- assign render_as_selected = true -%}
         {%- else -%}
           {%- assign render_as_selected = false -%}
@@ -61,24 +60,32 @@
             render_as_selected: render_as_selected
           %}
         {% endcapture %}
-        {%- if metafield_table.settings.render_location == "before_existing" -%}
-          {%- assign before_tabs_metafield_tab_title_render = before_tabs_metafield_tab_title_render | append: metafield_table_tab_title -%}
-          {%- assign before_tabs_metafield_tab_content_render = before_tabs_metafield_tab_content_render | append: metafield_table_tab_content -%}
+        {%- if metafield_table.settings.render_location == 'before_existing' -%}
+          {%- assign before_tabs_metafield_tab_title_render = before_tabs_metafield_tab_title_render
+            | append: metafield_table_tab_title
+          -%}
+          {%- assign before_tabs_metafield_tab_content_render = before_tabs_metafield_tab_content_render
+            | append: metafield_table_tab_content
+          -%}
         {%- else -%}
-          {%- assign after_tabs_metafield_tab_title_render = after_tabs_metafield_tab_title_render | append: metafield_table_tab_title -%}
-          {%- assign after_tabs_metafield_tab_content_render = after_tabs_metafield_tab_content_render | append: metafield_table_tab_content -%}
+          {%- assign after_tabs_metafield_tab_title_render = after_tabs_metafield_tab_title_render
+            | append: metafield_table_tab_title
+          -%}
+          {%- assign after_tabs_metafield_tab_content_render = after_tabs_metafield_tab_content_render
+            | append: metafield_table_tab_content
+          -%}
         {%- endif -%}
       {%- endif -%}
     {%- endif -%}
   {%- endfor -%}
 {%- endif -%}
 
-<div class="cc-tabs cc-tabs--{{ display_type }}-mode" data-cc-tab-allow-multi-open="{{ allow_multi_open }}">
-  {%- if display_type == "tab" -%}
+<div class="a cc-tabs cc-tabs--{{ display_type }}-mode" data-cc-tab-allow-multi-open="{{ allow_multi_open }}">
+  {%- if display_type == 'tab' -%}
     <div class="cc-tabs__tab-headers-container">
       <ul class="cc-tabs__tab-headers" role="tablist">
         {%- liquid
-          if before_tabs_metafield_tab_title_render != ""
+          if before_tabs_metafield_tab_title_render != ''
             echo before_tabs_metafield_tab_title_render
           endif
         -%}
@@ -99,14 +106,23 @@
           {%- endif -%}
           {%- if tab_title != blank and tab_content != blank -%}
             {%- if first_valid_tab_found == blank -%}
-              {%- assign first_valid_tab_found = "product-tab-panel" | append: forloop.index | append: "_" | append: tabId -%}
+              {%- assign first_valid_tab_found = 'product-tab-panel'
+                | append: forloop.index
+                | append: '_'
+                | append: tabId
+              -%}
               {%- assign render_as_selected = true -%}
             {%- else -%}
               {%- assign render_as_selected = false -%}
             {%- endif -%}
             <li role="tab">
-              <a href="#" class="cc-tabs__tab-headers__header" aria-selected="{{ render_as_selected }}"
-                aria-controls="product-tab-panel{{ forloop.index }}_{{ tabId }}" data-cc-toggle-panel="{{ forloop.index }}_{{ tabId }}">
+              <a
+                href="#"
+                class="cc-tabs__tab-headers__header"
+                aria-selected="{{ render_as_selected }}"
+                aria-controls="product-tab-panel{{ forloop.index }}_{{ tabId }}"
+                data-cc-toggle-panel="{{ forloop.index }}_{{ tabId }}"
+              >
                 {{ tab_title }}
               </a>
             </li>
@@ -114,15 +130,20 @@
         {% endfor %}
 
         {%- liquid
-          if after_tabs_metafield_tab_title_render != ""
+          if after_tabs_metafield_tab_title_render != ''
             echo after_tabs_metafield_tab_title_render
           endif
         -%}
 
         {%- if show_reviews -%}
           <li role="tab" data-show-in-quickbuy="false">
-            <a href="#" class="cc-tabs__tab-headers__header" aria-selected="false"
-               aria-controls="product-tab-panel9_{{ tabId }}" data-cc-toggle-panel="9_{{ tabId }}">
+            <a
+              href="#"
+              class="cc-tabs__tab-headers__header"
+              aria-selected="false"
+              aria-controls="product-tab-panel9_{{ tabId }}"
+              data-cc-toggle-panel="9_{{ tabId }}"
+            >
               {% if reviews_title %}
                 {{ reviews_title }}
               {% else %}
@@ -136,7 +157,7 @@
   {%- endif -%}
 
   {%- liquid
-    if before_tabs_metafield_tab_content_render != ""
+    if before_tabs_metafield_tab_content_render != ''
       echo before_tabs_metafield_tab_content_render
     endif
   -%}
@@ -161,7 +182,7 @@
       capture tab_metafield_table_render_above
         if metafield_tables and metafield_tables.size > 0
           for metafield_table in metafield_tables
-            if metafield_table.settings.append_id == tab_append_id and metafield_table.settings.append_location == "above"
+            if metafield_table.settings.append_id == tab_append_id and metafield_table.settings.append_location == 'above'
               render 'metafield_table', metafield_table: metafield_table
             endif
           endfor
@@ -170,7 +191,7 @@
       capture tab_metafield_table_render_below
         if metafield_tables and metafield_tables.size > 0
           for metafield_table in metafield_tables
-            if metafield_table.settings.append_id == tab_append_id and metafield_table.settings.append_location == "below"
+            if metafield_table.settings.append_id == tab_append_id and metafield_table.settings.append_location == 'below'
               render 'metafield_table', metafield_table: metafield_table
             endif
           endfor
@@ -178,46 +199,73 @@
       endcapture
     -%}
     {%- if tab_title != blank and tab_content != blank -%}
-      <div class="cc-tabs__tab" role="tablist">
-        {%- if display_type == "accordion" -%}
+      <div class="cc-tabs__tab" role="tablist" data-type="{{ tab_title | handleize }}">
+        {%- if display_type == 'accordion' -%}
           {%- if first_valid_tab_found == blank -%}
-            {%- assign first_valid_tab_found = "product-tab-panel" | append: forloop.index | append: "_" | append: tabId -%}
+            {%- assign first_valid_tab_found = 'product-tab-panel'
+              | append: forloop.index
+              | append: '_'
+              | append: tabId
+            -%}
             {%- assign render_as_selected = true -%}
           {%- else -%}
             {%- assign render_as_selected = false -%}
           {%- endif -%}
-          <a href="#" class="cc-tabs__accordion__header" role="tab" aria-selected="{{ render_as_selected }}"
-             aria-controls="product-tab-panel{{ forloop.index }}_{{ tabId }}" data-cc-toggle-panel="{{ forloop.index }}_{{ tabId }}">
+          <a
+            href="#"
+            class="t cc-tabs__accordion__header"
+            role="tab"
+            aria-selected="{{ render_as_selected }}"
+            aria-controls="product-tab-panel{{ forloop.index }}_{{ tabId }}"
+            data-cc-toggle-panel="{{ forloop.index }}_{{ tabId }}"
+          >
             {{ tab_title }}
           </a>
         {%- endif -%}
-        {%- assign current_id = "product-tab-panel" | append: forloop.index | append: "_" | append: tabId -%}
+        {%- assign current_id = 'product-tab-panel' | append: forloop.index | append: '_' | append: tabId -%}
         {%- if first_valid_tab_found == current_id -%}
           {%- assign render_as_selected = true -%}
         {% else %}
           {%- assign render_as_selected = false -%}
         {%- endif -%}
-        <div class="cc-tabs__tab__panel rte" {% unless render_as_selected %}hidden=""{% endunless %} role="tab" id="product-tab-panel{{ forloop.index }}_{{ tabId }}"
-             aria-labelledby="product-tab-panel{{ forloop.index }}_{{ tabId }}">
-          {{ tab_metafield_table_render_above }}
+        <div
+          class="cc-tabs__tab__panel rte"
+          {% unless render_as_selected %}
+            hidden=""
+          {% endunless %}
+          role="tab"
+          id="product-tab-panel{{ forloop.index }}_{{ tabId }}"
+          aria-labelledby="product-tab-panel{{ forloop.index }}_{{ tabId }}"
+        >
+          {%- if block.settings.show_metafield -%}
+            {{ tab_metafield_table_render_above }}
+          {%- endif -%}
           {{ tab_content }}
-          {{ tab_metafield_table_render_below }}
+          {%- if block.settings.show_metafield -%}
+            {{ tab_metafield_table_render_below }}
+          {%- endif -%}
         </div>
       </div>
     {%- endif -%}
   {% endfor %}
 
   {%- liquid
-    if after_tabs_metafield_tab_content_render != ""
+    if after_tabs_metafield_tab_content_render != ''
       echo after_tabs_metafield_tab_content_render
     endif
   -%}
 
   {%- if show_reviews -%}
     <div class="cc-tabs__tab" role="tablist" data-show-in-quickbuy="false">
-      {%- if display_type == "accordion" -%}
-        <a href="#" class="cc-tabs__accordion__header" role="tab" aria-selected="{% if tab_reviews_collapsed == false %}true{% if allow_multi_open and accordion_is_closed == false %}true{% else %}false{% endif %}{% endif %}"
-           aria-controls="product-tab-panel9_{{ tabId }}" data-cc-toggle-panel="9_{{ tabId }}">
+      {%- if display_type == 'accordion' -%}
+        <a
+          href="#"
+          class="cc-tabs__accordion__header"
+          role="tab"
+          aria-selected="{% if tab_reviews_collapsed == false %}true{% if allow_multi_open and accordion_is_closed == false %}true{% else %}false{% endif %}{% endif %}"
+          aria-controls="product-tab-panel9_{{ tabId }}"
+          data-cc-toggle-panel="9_{{ tabId }}"
+        >
           {% if reviews_title %}
             {{ reviews_title }}
           {% else %}
@@ -225,8 +273,17 @@
           {% endif %}
         </a>
       {%- endif -%}
-      <div class="cc-tabs__tab__panel rte" {% if allow_multi_open == blank or accordion_is_closed %}hidden=""{% elsif tab_reviews_collapsed %}hidden=""{% endif %} role="tab" id="product-tab-panel9_{{ tabId }}"
-           aria-labelledby="product-tab-panel9_{{ tabId }}">
+      <div
+        class="cc-tabs__tab__panel rte"
+        {% if allow_multi_open == blank or accordion_is_closed %}
+          hidden=""
+        {% elsif tab_reviews_collapsed %}
+          hidden=""
+        {% endif %}
+        role="tab"
+        id="product-tab-panel9_{{ tabId }}"
+        aria-labelledby="product-tab-panel9_{{ tabId }}"
+      >
         <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
       </div>
     </div>

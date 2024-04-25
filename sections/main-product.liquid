@@ -734,44 +734,7 @@
                     {% endif %}
                   {% endif %}
                 {%- when 'tabs' -%}
-                  <div class="product-detail__tab-container product-detail__gap-lg" {{ block.shopify_attributes }}>
-                    {%- liquid
-                      assign product_description_title = 'products.product.description' | t
-
-                      if block.settings.show_product_description == false
-                        assign tab1_title = block.settings.tab_2_title | default: pages[block.settings.tab_2_page].title
-                        assign tab1_content = block.settings.tab_2_content | default: pages[block.settings.tab_2_page].content
-                        assign tab1_append_id = block.settings.tab_2_append_id | default: "TAB1_APPEND_ID"
-                        assign tab2_title = block.settings.tab_3_title | default: pages[block.settings.tab_3_page].title
-                        assign tab2_content = block.settings.tab_3_content | default: pages[block.settings.tab_3_page].content
-                        assign tab2_append_id = block.settings.tab_3_append_id | default: "TAB2_APPEND_ID"
-                        assign tab3_title = block.settings.tab_4_title | default: pages[block.settings.tab_4_page].title
-                        assign tab3_content = block.settings.tab_4_content | default: pages[block.settings.tab_4_page].content
-                        assign tab3_append_id = block.settings.tab_4_append_id | default: "TAB3_APPEND_ID"
-                      else
-                        assign tab1_title = product_description_title
-                        assign tab1_content = product.description
-                        assign tab1_append_id = block.settings.tab_1_append_id | default: "TAB1_APPEND_ID"
-                        assign tab2_title = block.settings.tab_2_title | default: pages[block.settings.tab_2_page].title
-                        assign tab2_content = block.settings.tab_2_content | default: pages[block.settings.tab_2_page].content
-                        assign tab2_append_id = block.settings.tab_2_append_id | default: "TAB2_APPEND_ID"
-                        assign tab3_title = block.settings.tab_3_title | default: pages[block.settings.tab_3_page].title
-                        assign tab3_content = block.settings.tab_3_content | default: pages[block.settings.tab_3_page].content
-                        assign tab3_append_id = block.settings.tab_3_append_id | default: "TAB3_APPEND_ID"
-                        assign tab4_title = block.settings.tab_4_title | default: pages[block.settings.tab_4_page].title
-                        assign tab4_content = block.settings.tab_4_content | default: pages[block.settings.tab_4_page].content
-                        assign tab4_append_id = block.settings.tab_4_append_id | default: "TAB4_APPEND_ID"
-                      endif
-
-                      assign metafield_tables = section.blocks | where: "type", "metafield_table"
-                    -%}
-                    {%
-                      render "tabs",
-                      product: product,
-                      block: block,
-                      metafield_tables: metafield_tables,
-                    %}
-                  </div>
+                  
 
                 {% when 'accordion' %}
                   {%- liquid
@@ -1056,6 +1019,49 @@
       </div>
     </div>
   </div>
+
+</div>
+
+<div class="product-description">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'tabs' -%}
+        <div class="ttt product-detail__tab-container product-detail__gap-lg" {{ block.shopify_attributes }}>
+          {%- liquid
+            assign product_description_title = 'products.product.description' | t
+
+            if block.settings.show_product_description == false
+              assign tab1_title = block.settings.tab_2_title | default: pages[block.settings.tab_2_page].title
+              assign tab1_content = block.settings.tab_2_content | default: pages[block.settings.tab_2_page].content
+              assign tab1_append_id = block.settings.tab_2_append_id | default: 'TAB1_APPEND_ID'
+              assign tab2_title = block.settings.tab_3_title | default: pages[block.settings.tab_3_page].title
+              assign tab2_content = block.settings.tab_3_content | default: pages[block.settings.tab_3_page].content
+              assign tab2_append_id = block.settings.tab_3_append_id | default: 'TAB2_APPEND_ID'
+              assign tab3_title = block.settings.tab_4_title | default: pages[block.settings.tab_4_page].title
+              assign tab3_content = block.settings.tab_4_content | default: pages[block.settings.tab_4_page].content
+              assign tab3_append_id = block.settings.tab_4_append_id | default: 'TAB3_APPEND_ID'
+            else
+              assign tab1_title = product_description_title
+              assign tab1_content = product.description
+              assign tab1_append_id = block.settings.tab_1_append_id | default: 'TAB1_APPEND_ID'
+              assign tab2_title = block.settings.tab_2_title | default: pages[block.settings.tab_2_page].title
+              assign tab2_content = block.settings.tab_2_content | default: pages[block.settings.tab_2_page].content
+              assign tab2_append_id = block.settings.tab_2_append_id | default: 'TAB2_APPEND_ID'
+              assign tab3_title = block.settings.tab_3_title | default: pages[block.settings.tab_3_page].title
+              assign tab3_content = block.settings.tab_3_content | default: pages[block.settings.tab_3_page].content
+              assign tab3_append_id = block.settings.tab_3_append_id | default: 'TAB3_APPEND_ID'
+              assign tab4_title = block.settings.tab_4_title | default: pages[block.settings.tab_4_page].title
+              assign tab4_content = block.settings.tab_4_content | default: pages[block.settings.tab_4_page].content
+              assign tab4_append_id = block.settings.tab_4_append_id | default: 'TAB4_APPEND_ID'
+            endif
+
+            assign metafield_tables = section.blocks | where: 'type', 'metafield_table'
+          -%}
+          {% render 'tabs', product: product, block: block %}
+          {% render 'tabs', product: product, block: block, metafield_tables: metafield_tables %}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
 </div>
 
 <script type="application/json" id="cc-product-json-{{ product.id }}">

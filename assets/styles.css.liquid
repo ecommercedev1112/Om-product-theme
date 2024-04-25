@@ -9809,11 +9809,10 @@ html.touch .product-block.product-block--quickbuy .cc-quick-buy-btn, html.touch 
 .product-area {
   position: relative;
   z-index: 3;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
 }
 @media (min-width: 768px) {
   .product-area {
-    margin-bottom: 100px;
     display: flex;
     justify-content: center;
   }
@@ -10193,17 +10192,10 @@ html.touch .product-block.product-block--quickbuy .cc-quick-buy-btn, html.touch 
 
 @media (min-width: 1441px) {
   .product-area .product-area__media {
-    width: 30%;
+    width: 45%;
   }
 }
 
-/* Spara till senare - Före ändring
-@media (min-width: 1441px) {
-  .product-area .product-area__media {
-    width: calc(100% - 600px);
-  }
-
-*/
 
 
 @media (min-width: 992px) {
@@ -15369,6 +15361,10 @@ body {
   display: none;
 }
 
+.cc-tabs:not(:first-of-type) [data-type] {
+  display: none;
+}
+
 #predictive-search-results {
   max-height: 80vh;
   height: max-content;
@@ -15383,6 +15379,17 @@ body {
   right: 25px;
   color: #9b9b9b !important;
 }
+.product-description .product-detail__tab-container {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  justify-content: space-between;
+}
+.product-description .cc-tabs {
+  width: 48%;
+  margin-top: 20px;
+}
+
 
 @media(min-width:1441px) {
   .product-detail__form .no-compared {
@@ -16096,6 +16103,12 @@ button#search_postcode {
   }
 }
 @media(max-width:500px) {
+  .product-description .product-detail__tab-container {
+    flex-direction: column;
+  }
+  .product-description .cc-tabs {
+    width: 100%;
+  }
   .price-pallet .sub-price .sub-price-section .material-icons {
     padding: 4px 8px;
   }

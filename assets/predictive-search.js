@@ -54,6 +54,10 @@ class PredictiveSearch extends HTMLElement {
       .then((text) => {
         const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML;
         this.predictiveSearchResults.innerHTML = resultsMarkup;
+        if(this.predictiveSearchResults.querySelector('.product')) this.predictiveSearchResults.querySelectorAll('.product a').forEach(link => {
+          let url = link.getAttribute('href');
+          link.setAttribute('href', url.split('?')[0]);
+        });
         this.open();
         this.querySelectorAll('.predictive-collection').forEach(element => {
           if (element.dataset.handle.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1) {
