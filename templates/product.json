@@ -78,7 +78,7 @@
             "render_location": "before_existing",
             "append_id": "",
             "append_location": "above",
-            "title": "Fakta",
+            "title": "Tekniska specifikationer",
             "rte_content": "",
             "metafields": "my_fields.artikelnummer\nmy_fields.farg\nmy_fields.antal_per_pall\nmy_fields.vikt_per_kantsten\nmy_fields.vikt_per_pall\nmy_fields.pris_per_kvm\nmy_fields.vikt_per_stolpe\nmy_fields.antal_plattor_per_kvm\nmy_fields.storlek\ncustom.radie\nmy_fields.ursprungsland\nmy_fields.lagerort\nmy_fields.ce_standard\nmy_fields.leveranstid\nmy_fields.vikt_per_platta\nmy_fields.bearbetning\nmy_fields.stensort\nmy_fields.fogbredd\nmy_fields.frostbest_ndig\nmy_fields.anv_ndningsomr_de\nmy_fields.antal_kvm_per_pall\ncustom.trafikklass\ncustom.antal_kvm_per_sack"
           }

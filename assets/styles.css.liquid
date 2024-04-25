@@ -3170,10 +3170,6 @@ footer.three-quarters,
 .cc-tabs .cc-tabs__tab .cc-tabs__tab__panel #shopify-product-reviews .spr-container .spr-form-actions input {
   float: left;
 }
-.cc-tabs.cc-tabs--accordion-mode {
-  border-top: 1px solid {{ col_text | color_mix: col_page_bg, 15 }};
-  border-bottom: 1px solid {{ col_text | color_mix: col_page_bg, 15 }};
-}
 .cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab-headers {
   display: none;
 }
@@ -3185,20 +3181,23 @@ footer.three-quarters,
 }
 .cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab .cc-tabs__accordion__header:after, .cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab .cc-tabs__accordion__header:before {
   content: "";
-  height: 2px;
+  height: 10px;
   width: 10px;
   position: absolute;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  background-color: currentColor;
+  background-color: transparent;
+  border-left: 1px solid #111;
+  border-bottom: 1px solid #111;
 }
-.cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab .cc-tabs__accordion__header:after {
+.cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab .cc-tabs__accordion__header:after,.cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab .cc-tabs__accordion__header:before {
   transition: transform 0.4s;
-  transform: translateY(-50%) rotate(90deg);
+  transform: translateY(-50%) rotate(-45deg);
+
 }
-.cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab .cc-tabs__accordion__header[aria-selected=true]:after {
-  transform: translateY(-50%) rotate(0deg);
+.cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab .cc-tabs__accordion__header[aria-selected=true]:after,.cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab .cc-tabs__accordion__header[aria-selected=true]:before {
+  transform: translateY(-50%) rotate(135deg);
 }
 .cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab .cc-tabs__accordion__header .spr-badge {
   display: inline-block;
@@ -15389,7 +15388,10 @@ body {
   width: 48%;
   margin-top: 20px;
 }
-
+.cc-tabs__tab {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
 
 @media(min-width:1441px) {
   .product-detail__form .no-compared {
@@ -16103,8 +16105,11 @@ button#search_postcode {
   }
 }
 @media(max-width:500px) {
+  .cc-tabs.cc-tabs--accordion-mode .cc-tabs__tab .cc-tabs__accordion__header {
+    padding: 15px 0;
+  }
   .product-description .product-detail__tab-container {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
   .product-description .cc-tabs {
     width: 100%;

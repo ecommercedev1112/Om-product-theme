@@ -85,7 +85,7 @@
         </div>
       {% endif %}
 
-      <a data-cc-animate-click class="image-inner" href="{{ product_url }}" aria-label="{{ product.title | escape }}" tabindex="-1">
+      <a data-cc-animate-click class="image-inner" href="{{ product_url | split: '?' | first }}" aria-label="{{ product.title | escape }}" tabindex="-1">
         <div class="image__first">
           {% if mp4_url != blank %}
             {% render 'inline-video', video: mp4_url, image: primary_image %}
@@ -201,7 +201,7 @@
         </a>
       </div>
     {%- endif -%}
-    <a data-cc-animate-click href="{{ product_url }}" class="caption upper">
+    <a data-cc-animate-click href="{{ product_url | split: '?' | first }}" class="caption upper">
       {% if product.metafields.custom.nere_h_ge or product.metafields.custom.position_image %}
         <div class="product-region {% if product.metafields.custom.nere_h_ge %}text{% endif %}">
           {% if product.metafields.custom.position_image %}
